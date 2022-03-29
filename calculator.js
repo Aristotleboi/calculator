@@ -30,59 +30,103 @@ function operate(firstVar, secondVar, operation) {
 //operator buttons
 const addition = document.querySelector('#add');
 addition.addEventListener('click', () => {
-    userOperator = 1;
-    if (currentNum === "") {
-        lastNum = lastNum + currentNum;
+    if (userOperator === 0 && currentNum === "" && lastNum === 0) {
+        screenDisplay(lastNum);
+        console.log('pressing add')
+    } else if (userOperator === 0 & lastNum === 0) {
+        userOperator = 1;
+        lastNum = currentNum;
+        currentNum = "";
+        screenDisplay(lastNum);
+        console.log ("first number");
+    } else if (userOperator === 0 && lastNum !== 0) {
+        userOperator = 1;
+        screenDisplay(lastNum);
+        console.log('pressed add after pressing =')
     } else {
-        currentNum = parseInt(currentNum);
-        lastNum = lastNum + currentNum;
-    };
-    currentNum = "";
-    screenDisplay(lastNum);
+        currentNum = parseFloat(currentNum);
+        lastNum = parseFloat(lastNum);
+        lastNum = operate(lastNum, currentNum, userOperator);
+        screenDisplay(lastNum);
+        userOperator = 1;
+        currentNum = "";
+        console.log("keep pressing the add button");
+    }
 });
 const subtraction = document.querySelector('#subtract');
 subtraction.addEventListener('click', () => {
-    userOperator = 2;
-    if (currentNum === "") {
-        lastNum = lastNum + currentNum;
+    if (userOperator === 0 && currentNum === "" && lastNum === 0) {
+        screenDisplay(lastNum);
+    } else if (userOperator === 0 & lastNum === 0) {
+        userOperator = 2;
+        lastNum = currentNum;
+        currentNum = "";
+        screenDisplay(lastNum);
+    } else if (userOperator === 0 && lastNum !== 0) {
+        userOperator = 2;
+        lastNum = userAnswer;
+        screenDisplay(lastNum);
     } else {
-        currentNum = parseInt(currentNum);
-        lastNum = lastNum + currentNum;
+        currentNum = parseFloat(currentNum);
+        lastNum = parseFloat(lastNum);
+        lastNum = operate(lastNum, currentNum, userOperator);
+        screenDisplay(lastNum);
+        userOperator = 2;
+        currentNum = "";
     }
-    currentNum = "";
-    screenDisplay(lastNum);
 });
 const multiplication = document.querySelector('#multiply');
 multiplication.addEventListener('click', () => {
-    userOperator = 3;
-    if (currentNum === "") {
-        lastNum = lastNum + currentNum;
+    if (userOperator === 0 && currentNum === "" && lastNum === 0) {
+        screenDisplay(lastNum);
+    } else if (userOperator === 0 & lastNum === 0) {
+        userOperator = 3;
+        lastNum = currentNum;
+        currentNum = "";
+        screenDisplay(lastNum);
+    } else if (userOperator === 0 && lastNum !== 0) {
+        userOperator = 3;
+        lastNum = userAnswer;
+        screenDisplay(lastNum);
     } else {
-        currentNum = parseInt(currentNum);
-        lastNum = lastNum + currentNum;
+        currentNum = parseFloat(currentNum);
+        lastNum = parseFloat(lastNum);
+        lastNum = operate(lastNum, currentNum, userOperator);
+        screenDisplay(lastNum);
+        userOperator = 3;
+        currentNum = "";
     }
-    currentNum = "";
-    screenDisplay(lastNum);
 });
 const divide = document.querySelector('#divide');
 divide.addEventListener('click', () => {
-    userOperator = 4;
-    if (currentNum === "") {
-        lastNum = lastNum + currentNum;
+    if (userOperator === 0 && currentNum === "" && lastNum === 0) {
+        screenDisplay(lastNum);
+    } else if (userOperator === 0 & lastNum === 0) {
+        userOperator = 4;
+        lastNum = currentNum;
+        currentNum = "";
+        screenDisplay(lastNum);
+    } else if (userOperator === 0 && lastNum !== 0) {
+        userOperator = 4;
+        lastNum = userAnswer;
+        screenDisplay(lastNum);
     } else {
-        currentNum = parseInt(currentNum);
-        lastNum = lastNum + currentNum;
+        currentNum = parseFloat(currentNum);
+        lastNum = parseFloat(lastNum);
+        lastNum = operate(lastNum, currentNum, userOperator);
+        screenDisplay(lastNum);
+        userOperator = 4;
+        currentNum = "";
     }
-    currentNum = "";
-    screenDisplay(lastNum);
 });
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', () => {
-    currentNum = parseInt(currentNum);
-    lastNum = parseInt(lastNum);
+    currentNum = parseFloat(currentNum);
+    lastNum = parseFloat(lastNum);
     userAnswer = operate(lastNum, currentNum, userOperator);
     lastNum = userAnswer
-    currentNum = ""
+    currentNum = "";
+    userOperator = 0;
     screenDisplay(userAnswer);
 });
 
@@ -139,17 +183,23 @@ zero.addEventListener('click', () => {
 });
 const decimal = document.querySelector('#decimal');
 decimal.addEventListener('click', () => {
-
+    currentNum = currentNum + '.';
+    screenDisplay(currentNum);
 });
 
 //Other buttons
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', () => {
-
+    currentNum = "";
+    screenDisplay(lastNum);
 });
 const clearAll = document.querySelector('#clear-all')
 clearAll.addEventListener('click', () => {
-
+    currentNum = "";
+    lastNum = 0;
+    userOperator = 0;
+    userAnswer = 0;
+    screenDisplay(lastNum);
 });
 
 
@@ -167,7 +217,7 @@ function screenDisplay(text) {
 let currentNum = "";
 let lastNum = 0;
 let userAnswer = 0;
-let userOperator;
+let userOperator = 0;
 
 
 
